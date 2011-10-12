@@ -5,7 +5,7 @@ main()
     printf("%s\n", "Hello, World!");
     printf("Hello, World!\n");
 
-    char string[14] = "Hello, World!";
+    char string[13] = "Hello, World!!";
     printf("%s\n", string);
 
     char string2[6];
@@ -17,4 +17,5 @@ main()
     string2[5] = '\0';
 
     printf("%s\n", string2);
+
 }
