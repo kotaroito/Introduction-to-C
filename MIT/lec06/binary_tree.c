@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include <stdlib.h>
+#include <stdio.h>
 
 struct tnode
 {
@@ -24,6 +25,30 @@ struct tnode
     struct tnode* right;
 };
 
+struct tnode* talloc(int data);
+struct tnode* addnode(struct tnode* root, int data);
+struct tnode* findnode(struct tnode* root, int data);
+void          printnode(struct tnode* node);
+
+
+int main(int argc, char* argv[])
+{
+    struct tnode* t = NULL;
+    t = addnode(t,3);
+    t = addnode(t,1);
+    t = addnode(t,2);
+    t = addnode(t,4);
+
+    printnode( findnode(t,1) );
+    printnode( findnode(t,2) );
+    printnode( findnode(t,5) ); // not found
+    
+    exit(0);
+}
+
+/*
+ * Implementation
+ */
 struct tnode* talloc(int data)
 {
     struct tnode* p = (struct tnode*)malloc(sizeof(struct tnode));
@@ -48,11 +73,25 @@ struct tnode* addnode(struct tnode* root, int data)
     return root;
 }
 
-int main(int argc, char* argv[])
+struct tnode* findnode(struct tnode* root, int data)
 {
-    struct tnode* p = NULL;
-    p = addnode(p,3);
-    p = addnode(p,1);
+    struct tnode* found;
 
-    exit(0);
+    if ( root == NULL )
+        found = NULL;
+    else if ( data == root->data )
+        found = root;
+    else if ( data < root->data )
+        found = findnode(root->left, data);
+    else
+        found = findnode(root->right, data);
+
+    return found;
 }
+
+void printnode(struct tnode* node)
+{
+    if ( node != NULL )
+        printf("%d\n", node->data);
+}
+
